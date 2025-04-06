@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz de Super-Heróis da Marvel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="quiz-container">
+    <h1>Quiz de Super-Heróis da Marvel</h1>
+    <div id="pergunta-container"></div>
+    <div id="respostas-container"></div>
+    <div id="feedback-container"></div>
+    <div id="pontuacao-container"></div>
+  </div>
+  <script>
+    const perguntaContainer = document.getElementById('pergunta-container');
+    const respostasContainer = document.getElementById('respostas-container');
+    const pontuacaoContainer = document.getElementById('pontuacao-container');
+
+    // Lista de perguntas no próprio código
+    const perguntas = [
+      {
+        "pergunta": "Qual é o nome verdadeiro do Homem de Ferro?",
+        "respostas": ["Bruce Banner", "Tony Stark", "Steve Rogers", "Peter Parker"],
+        "respostaCorreta": 1 // Tony Stark
+      },
+      {
+        "pergunta": "Qual é o nome do martelo do Thor?",
+        "respostas": ["Stormbreaker", "Mjolnir", "Gungnir", "Jarnbjorn"],
+        "respostaCorreta": 1 // Mjolnir
+      },
+      {
+        "pergunta": "Qual é o nome do planeta natal do Thanos?",
+        "respostas": ["Xandar", "Titan", "Asgard", "Knowhere"],
+        "respostaCorreta": 1 // Titan
+      },
+      {
+        "pergunta": "Qual é o nome da irmã da Viúva Negra?",
+        "respostas": ["Gamora", "Nebula", "Yelena Belova", "Valkyrie"],
+        "respostaCorreta": 2 // Yelena Belova
+      },
+      {
+        "pergunta": "Qual é o nome da Joia da Mente que estava na testa do Visão?",
+        "respostas": ["Joia do Espaço", "Joia da Realidade", "Joia do Tempo", "Joia da Mente"],
+        "respostaCorreta": 3 // Joia da Mente
+      }
+    ];
+
+    let perguntaAtual = 0;
+    let pontuacao = 0;
+
+    function mostrarPergunta() {
+      const pergunta = perguntas[perguntaAtual];
+      perguntaContainer.textContent = pergunta.pergunta;
+
+      respostasContainer.innerHTML = '';
+      pergunta.respostas.forEach((resposta, index) => {
+        const respostaButton = document.createElement('button');
+        respostaButton.textContent = resposta;
+        respostaButton.addEventListener('click', () => verificarResposta(index));
+        respostasContainer.appendChild(respostaButton);
+      });
+    }
+
+    function verificarResposta(respostaSelecionada) {
+      const pergunta = perguntas[perguntaAtual];
+      if (respostaSelecionada === pergunta.respostaCorreta) {
+        pontuacao++;
+      }
+
+      perguntaAtual++;
+
+      if (perguntaAtual < perguntas.length) {
+        mostrarPergunta();
+      } else {
+        mostrarPontuacao();
+      }
+    }
+
+    function mostrarPontuacao() {
+      perguntaContainer.style.display = 'none';
+      respostasContainer.style.display = 'none';
+      pontuacaoContainer.textContent = `Sua pontuação final é ${pontuacao} de ${perguntas.length}`;
+    }
+
+    // Mostrar a primeira pergunta ao carregar a página
+    mostrarPergunta();
+  </script>
+</body>
+</html>
