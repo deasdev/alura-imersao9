@@ -1,14 +1,151 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jogo da Memória</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Perguntas Ninja do Pato</title>
+    <style>
+        /* Adicione estilos CSS aqui, se necessário */
+        .body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .conteudo-jogo {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .questionario {
+            text-align: center;
+        }
+
+        .respostas button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .fim {
+            margin-top: 20px;
+        }
+
+        #reiniciar {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div class="tabuleiro" id="tabuleiro"></div>
-  <button id="reiniciar">Reiniciar</button>
-  <script src="jogo_da_memoria.js"></script>
+    <div class="titulo">
+        <h2>Super Perguntas Ninja do Pato</h2>
+    </div>
+    <div class="conteudo-jogo">
+        <section class="questionario">
+            <div class="conteudo">
+                <span class="progresso"></span>
+                <span class="pergunta"></span>
+                <div class="respostas"></div>
+            </div>
+
+            <div class="fim">
+                <button id="reiniciar">Jogar Novamente</button>
+                <span></span>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Adicione o código JavaScript aqui
+        const progresso = document.querySelector('.progresso');
+        const pergunta = document.querySelector('.pergunta');
+        const respostas = document.querySelector('.respostas');
+        const fim = document.querySelector('.fim');
+        const reiniciar = document.getElementById('reiniciar');
+        const resultado = fim.querySelector('span');
+
+        let perguntas = [
+            {
+                pergunta: 'Qual a capital do Brasil?',
+                respostas: ['Rio de Janeiro', 'Brasília', 'São Paulo', 'Salvador'],
+                respostaCorreta: 1
+            },
+            {
+                pergunta: 'Quanto é 2 + 2?',
+                respostas: ['3', '4', '5', '6'],
+                respostaCorreta: 1
+            },
+            {
+                pergunta: 'Qual é o maior planeta do sistema solar?',
+                respostas: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
+                respostaCorreta: 2
+            }
+        ];
+
+        let perguntaAtual = 0;
+        let pontuacao = 0;
+
+        function carregarPergunta() {
+            if (perguntaAtual < perguntas.length) {
+                progresso.textContent = `Pergunta ${perguntaAtual + 1} de ${perguntas.length}`;
+                pergunta.textContent = perguntas[perguntaAtual].pergunta;
+                respostas.innerHTML = '';
+
+                perguntas[perguntaAtual].respostas.forEach((resposta, index) => {
+                    const botaoResposta = document.createElement('button');
+                    botaoResposta.textContent = resposta;
+                    botaoResposta.addEventListener('click', () => verificarResposta(index));
+                    respostas.appendChild(botaoResposta);
+                });
+            } else {
+                mostrarResultado();
+            }
+        }
+
+        function verificarResposta(respostaSelecionada) {
+            if (respostaSelecionada === perguntas[perguntaAtual].respostaCorreta) {
+                pontuacao++;
+            }
+            perguntaAtual++;
+            carregarPergunta();
+        }
+
+        function mostrarResultado() {
+            pergunta.textContent = '';
+            respostas.innerHTML = '';
+            progresso.textContent = '';
+            resultado.textContent = `Você acertou ${pontuacao} de ${perguntas.length} perguntas.`;
+        }
+
+        function reiniciarJogo() {
+            perguntaAtual = 0;
+            pontuacao = 0;
+            carregarPergunta();
+        }
+
+        reiniciar.addEventListener('click', reiniciarJogo);
+
+        carregarPergunta();
+    </script>
 </body>
 </html>

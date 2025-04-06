@@ -1,31 +1,50 @@
-.tabuleiro {
-    display: grid;
-    grid-template-columns: repeat(4, 100px);
-    gap: 10px;
-    margin: 20px auto;
-    width: 420px;
-  }
-  
-  .carta {
-    width: 100px;
-    height: 100px;
-    background-color: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2em;
-    cursor: pointer;
-    border: 1px solid #ccc;
-  }
-  
-  .carta.virada {
-    background-color: #fff;
-  }
-  
-  #reiniciar {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-  }
+
+        .body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .conteudo-jogo {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .questionario {
+            text-align: center;
+        }
+
+        .respostas button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .fim {
+            margin-top: 20px;
+        }
+
+        #reiniciar {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+ 
